@@ -1,0 +1,29 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest --coverage",
+    "test:coverage": "jest --coverage",
+    "test:performance": "node performance-tests.js",
+    "build": "echo 'Building application...' && exit 0",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
