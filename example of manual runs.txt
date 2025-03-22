@@ -1,0 +1,46 @@
+Open git Bash
+
+Step 1.   Start by recording the start time:
+
+start_time=$(date +%s)
+
+Step 2.   Change directory to the folder containing your PowerShell scripts:
+
+cd /c/Deployments/test || { echo "Directory not found"; exit 1; }
+
+Step 3.   Run the webpage functionality check:
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "check_webpage_functionality.ps1"
+
+***Then check the exit code manually:
+
+if [ $? -ne 0 ]; then echo "Webpage functionality check failed. Exiting."; exit 1; fi
+
+Step 4.   Run the automated performance tests:
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "run_automated_performance_tests.ps1"
+
+Step 5.   Check the test status:
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "status_test.ps1"
+
+***Then capture the exit code into a variable:
+
+status=$?
+
+Step 6.   Based on the status, run backup or rollback:
+
+if [ $status -eq 0 ]; then
+    echo "Tests succeeded. Running backup & push to GitHub..."
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "backup_&_push_to_github.ps1"
+else
+    echo "Tests failed. Running rollback from backup..."
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "rollback_from_backup.ps1"
+fi
+
+Step 7.   Record finish time and calculate elapsed time
+
+end_time=$(date +%s)
+elapsed=$(( end_time - start_time ))
+echo "Total elapsed time: ${elapsed} seconds"
+
