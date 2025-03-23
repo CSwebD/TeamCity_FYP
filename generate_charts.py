@@ -6,11 +6,10 @@ from datetime import datetime
 
 # pip install pandas matplotlib
 
-
 def create_chart_from_csv(csv_path, output_dir):
     """
-    Reads a CSV file, parses the Timestamp column, and generates a line chart 
-    for each numeric column over time.
+    Reads a CSV file, cleans metric columns to ensure they're numeric,
+    parses the Timestamp column, and generates a line chart for each numeric column over time.
     """
     if not os.path.exists(csv_path):
         print(f"CSV file not found: {csv_path}")
@@ -28,19 +27,29 @@ def create_chart_from_csv(csv_path, output_dir):
         print(f"No 'Timestamp' column found in {csv_path}. Skipping chart.")
         return None
     
-    # Convert Timestamp to datetime if possible
+    # Convert Timestamp to datetime using the known format, adjust if needed
     try:
-        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'], format="%Y-%m-%d %H:%M:%S")
     except Exception as e:
         print(f"Could not parse 'Timestamp' as datetime in {csv_path}: {e}")
         return None
     
+    # Clean metric columns: remove any trailing unit like " s" and unwanted characters
+    for col in df.columns:
+        if col != 'Timestamp':
+            # Ensure we work with strings first
+            df[col] = df[col].astype(str)
+            # Remove unwanted characters like "Â" and trailing " s"
+            df[col] = df[col].str.replace("Â", "", regex=False)
+            df[col] = df[col].str.replace(" s", "", regex=False)
+            # Convert to numeric
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+    
     # Set Timestamp as the DataFrame index for easy plotting
     df.set_index('Timestamp', inplace=True)
     
-    # Filter out non-numeric columns (besides Timestamp)
+    # Filter out columns that didn't convert to numbers
     numeric_cols = df.select_dtypes(include=['number']).columns
-    
     if len(numeric_cols) == 0:
         print(f"No numeric columns to plot in {csv_path}.")
         return None

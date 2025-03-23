@@ -24,7 +24,7 @@ $lcp = "N/A"
 $speedIndex = "N/A"
 
 if (Test-Path $lighthouseReport) {
-    $lighthouseJson = Get-Content $lighthouseReport -Raw | ConvertFrom-Json
+    $lighthouseJson = Get-Content $lighthouseReport -Raw -Encoding UTF8 | ConvertFrom-Json
     $fcp = $lighthouseJson.audits."first-contentful-paint".displayValue
     $lcp = $lighthouseJson.audits."largest-contentful-paint".displayValue
     $speedIndex = $lighthouseJson.audits."speed-index".displayValue
@@ -33,13 +33,19 @@ Write-Output "First Contentful Paint (FCP): $fcp"
 Write-Output "Largest Contentful Paint (LCP): $lcp"
 Write-Output "Speed Index: $speedIndex"
 
+# Clean the metrics to keep only the numeric part.
+# Remove the Unicode character U+00C2 and trailing " s"
+$fcpClean = ($fcp.Trim() -replace "[\u00C2]", "") -replace "\s*s$", ""
+$lcpClean = ($lcp.Trim() -replace "[\u00C2]", "") -replace "\s*s$", ""
+$speedIndexClean = ($speedIndex.Trim() -replace "[\u00C2]", "") -replace "\s*s$", ""
+
 # Log results to a dedicated CSV for visual metrics
 if (!(Test-Path $performanceCSV)) {
     "Timestamp,FCP,LCP,Speed Index" | Out-File -Encoding utf8 $performanceCSV
 }
 
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$row = "$timestamp,$fcp,$lcp,$speedIndex"
+$row = "$timestamp,$fcpClean,$lcpClean,$speedIndexClean"
 $row = $row -replace [char]0xA0, ' '  # Remove non-breaking spaces if present
 Add-Content -Path $performanceCSV -Value $row -Encoding UTF8
 

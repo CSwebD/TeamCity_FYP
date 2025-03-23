@@ -23,7 +23,7 @@ $tti = "N/A"
 $tbt = "N/A"
 if (Test-Path $lighthouseReport) {
     $lighthouseJson = Get-Content $lighthouseReport -Raw | ConvertFrom-Json
-    # Extract TTI (usually a display value, e.g., "0.8 s")
+    # Extract TTI (usually a display value, e.g., "0.7 s")
     $tti = $lighthouseJson.audits.interactive.displayValue
     # Extract Total Blocking Time as a numeric value (in milliseconds)
     $tbt = $lighthouseJson.audits."total-blocking-time".numericValue
@@ -31,15 +31,17 @@ if (Test-Path $lighthouseReport) {
 Write-Output "Time to Interactive (TTI): $tti"
 Write-Output "Total Blocking Time (TBT): $tbt ms"
 
+# Clean the TTI value to remove stray "Â" and trailing " s"
+$ttiClean = ($tti.Trim() -replace "[\u00C2]", "") -replace "\s*s$", ""
+
 # Log results to a dedicated CSV for interaction metrics
 if (!(Test-Path $performanceCSV)) {
     "Timestamp,TTI,Total Blocking Time (ms)" | Out-File -Encoding utf8 $performanceCSV
 }
 
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$row = "$timestamp,$tti,$tbt"
-# Optionally remove any non-breaking spaces if needed:
-$row = $row -replace [char]0xA0, ' '
+$row = "$timestamp,$ttiClean,$tbt"
+$row = $row -replace [char]0xA0, ' '  # Remove non-breaking spaces if present
 Add-Content -Path $performanceCSV -Value $row -Encoding UTF8
 
 Write-Output "Interaction metrics recorded. Results stored at: $performanceCSV"
