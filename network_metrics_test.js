@@ -25,7 +25,7 @@ const fs = require('fs');
     fs.writeFileSync('C:\\Deployments\\test\\network_metrics.txt', JSON.stringify(timings));
     await browser.close();
   } catch (err) {
-    fs.writeFileSync('C:\\Deployments\\test\\network_metrics.txt', JSON.stringify({ error: "N/A" }));
+    fs.writeFileSync('C:\\Deployments\\test\\network_metrics.txt', JSON.stringify({ error: err.toString() }));
     console.error("Error in Network Metrics Test:", err);
   }
 })();

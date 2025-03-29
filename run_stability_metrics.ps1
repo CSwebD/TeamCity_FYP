@@ -1,5 +1,15 @@
 Write-Output "Starting Stability Metrics Test..."
 
+# Load user count from the JSON file
+$usersConfigPath = "C:\Deployments\test\number_of_users.json"
+if (Test-Path $usersConfigPath) {
+    $config = Get-Content $usersConfigPath -Raw | ConvertFrom-Json
+    $users = $config.users
+} else {
+    Write-Output "Configuration file not found. Using default user count of 1."
+    $users = 1
+}
+
 # Define paths and variables
 $deploymentsPath = "C:\Deployments\test"
 $artifactsPath = "C:\buildAgentFull\artifacts"
@@ -13,29 +23,33 @@ if (!(Test-Path $artifactsPath)) {
     New-Item -Path $artifactsPath -ItemType Directory -Force | Out-Null
 }
 
-# Run Lighthouse test to generate the report
-Write-Output "Running Lighthouse..."
-$lighthouseCmd = "lighthouse $testUrl --chrome-path=`"$chromePath`" --output=json --output-path=`"$lighthouseReport`" --chrome-flags=`"--headless --no-sandbox`""
-Invoke-Expression $lighthouseCmd
-
-# Parse Stability Metrics (CLS) from Lighthouse JSON report
-$cls = "N/A"
-if (Test-Path $lighthouseReport) {
-    $lighthouseJson = Get-Content $lighthouseReport -Raw | ConvertFrom-Json
-    # Extract the numeric value for cumulative layout shift (CLS)
-    $cls = $lighthouseJson.audits."cumulative-layout-shift".numericValue
-}
-Write-Output "Cumulative Layout Shift (CLS): $cls"
-
-# Log Stability Metrics to a dedicated CSV file
+# Prepare CSV header (with a "User" column) if it doesn't exist
 if (!(Test-Path $performanceCSV)) {
-    "Timestamp,CLS" | Out-File -Encoding utf8 $performanceCSV
+    "Timestamp,User,CLS" | Out-File -Encoding utf8 $performanceCSV
 }
 
-$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$row = "$timestamp,$cls"
-# Optionally remove non-breaking spaces if needed
-$row = $row -replace [char]0xA0, ' '
-Add-Content -Path $performanceCSV -Value $row -Encoding UTF8
+for ($i = 1; $i -le $users; $i++) {
+    Write-Output "User $i: Running Stability Metrics Test..."
 
-Write-Output "Stability metrics recorded. Results stored at: $performanceCSV"
+    # Run Lighthouse test to generate the report
+    Write-Output "Running Lighthouse..."
+    $lighthouseCmd = "lighthouse $testUrl --chrome-path=`"$chromePath`" --output=json --output-path=`"$lighthouseReport`" --chrome-flags=`"--headless --no-sandbox`""
+    Invoke-Expression $lighthouseCmd
+
+    # Parse Stability Metrics (CLS) from Lighthouse JSON report
+    $cls = "N/A"
+    if (Test-Path $lighthouseReport) {
+        $lighthouseJson = Get-Content $lighthouseReport -Raw -Encoding UTF8 | ConvertFrom-Json
+        # Extract the numeric value for Cumulative Layout Shift (CLS)
+        $cls = $lighthouseJson.audits."cumulative-layout-shift".numericValue
+    }
+    Write-Output "User $i - Cumulative Layout Shift (CLS): $cls"
+
+    # Log stability metric result to CSV
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $row = "$timestamp,$i,$cls"
+    $row = $row -replace [char]0xA0, ' '  # Remove non-breaking spaces if present
+    Add-Content -Path $performanceCSV -Value $row -Encoding utf8
+}
+
+Write-Output "Stability metrics recorded for $users users. Results stored at: $performanceCSV"

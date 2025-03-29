@@ -8,6 +8,7 @@ const fs = require('fs');
       args: ['--no-sandbox']
     });
     const page = await browser.newPage();
+    await page.setCacheEnabled(false);
     const startTime = Date.now();
     await page.goto('http://127.0.0.1:5500/test/index.html', { waitUntil: 'load', timeout: 30000 });
     const loadTime = Date.now() - startTime;

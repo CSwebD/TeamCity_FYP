@@ -1,6 +1,16 @@
 Write-Output "Starting Overall Load Metrics Test..."
 
-# Define paths
+# Load user count from the JSON file
+$usersConfigPath = "C:\Deployments\test\number_of_users.json"
+if (Test-Path $usersConfigPath) {
+    $config = Get-Content $usersConfigPath -Raw | ConvertFrom-Json
+    $users = $config.users
+} else {
+    Write-Output "Configuration file not found. Using default user count of 1."
+    $users = 1
+}
+
+# Define paths and variables
 $deploymentsPath = "C:\Deployments\test"
 $artifactsPath = "C:\buildAgentFull\artifacts"
 $performanceCSV = "$artifactsPath\performance_results_overall.csv"
@@ -14,8 +24,16 @@ if (!(Test-Path $artifactsPath)) {
     New-Item -Path $artifactsPath -ItemType Directory -Force | Out-Null
 }
 
-# Create the Puppeteer script to measure overall load time and TTFB
-@"
+# Prepare CSV header if it doesn't exist
+if (!(Test-Path $performanceCSV)) {
+    "Timestamp,User,Overall Load Time (ms),TTFB (ms)" | Out-File -Encoding utf8 $performanceCSV
+}
+
+for ($i = 1; $i -le $users; $i++) {
+    Write-Output "User $i: Running Overall Load Metrics Test..."
+
+    # Create the Puppeteer script that measures overall load time and TTFB
+    @"
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
@@ -27,6 +45,7 @@ const fs = require('fs');
       args: ['--no-sandbox']
     });
     const page = await browser.newPage();
+    await page.setCacheEnabled(false);
     const startTime = Date.now();
     await page.goto('$testUrl', { waitUntil: 'load', timeout: 30000 });
     const loadTime = Date.now() - startTime;
@@ -44,30 +63,25 @@ const fs = require('fs');
 })();
 "@ | Out-File -Encoding utf8 $puppeteerScript
 
-Write-Output "Running Puppeteer..."
-Invoke-Expression "node $puppeteerScript"
+    Write-Output "Running Puppeteer for user $i..."
+    Invoke-Expression "node $puppeteerScript"
 
-# Read and parse Puppeteer results
-$loadTimeJson = $null
-if (Test-Path $tempLoadTimeFile) {
-    $loadTimeJson = Get-Content $tempLoadTimeFile | ConvertFrom-Json
-    Remove-Item $tempLoadTimeFile -Force
-} else {
-    $loadTimeJson = @{ loadTime = "N/A"; ttfb = "N/A" }
+    # Read and parse Puppeteer results
+    $loadTimeJson = $null
+    if (Test-Path $tempLoadTimeFile) {
+        $loadTimeJson = Get-Content $tempLoadTimeFile -Raw | ConvertFrom-Json
+        Remove-Item $tempLoadTimeFile -Force
+    } else {
+        $loadTimeJson = @{ loadTime = "N/A"; ttfb = "N/A" }
+    }
+    Write-Output "User $i - Overall Load Time: $($loadTimeJson.loadTime) ms"
+    Write-Output "User $i - TTFB: $($loadTimeJson.ttfb) ms"
+
+    # Log the results to the CSV file for each user
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $row = "$timestamp,$i,$($loadTimeJson.loadTime),$($loadTimeJson.ttfb)"
+    $row = $row -replace [char]0xA0, ' '
+    Add-Content -Path $performanceCSV -Value $row -Encoding UTF8
 }
-Write-Output "Overall Load Time: $($loadTimeJson.loadTime) ms"
-Write-Output "TTFB: $($loadTimeJson.ttfb) ms"
 
-# Log results to a dedicated CSV for overall load metrics
-$header = "Timestamp,Overall Load Time (ms),TTFB (ms)"
-if (!(Test-Path $performanceCSV)) {
-    [System.IO.File]::WriteAllText($performanceCSV, $header + "`r`n", [System.Text.Encoding]::UTF8)
-}
-
-$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$row = "$timestamp,$($loadTimeJson.loadTime),$($loadTimeJson.ttfb)"
-# Optionally remove non-breaking spaces if needed:
-$row = $row -replace [char]0xA0, ' '
-Add-Content -Path $performanceCSV -Value $row -Encoding UTF8
-
-Write-Output "Overall Load Metrics recorded. Results stored at: $performanceCSV"
+Write-Output "Overall Load Metrics recorded for $users users. Results stored at: $performanceCSV"

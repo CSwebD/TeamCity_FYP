@@ -1,5 +1,15 @@
 Write-Output "Starting Interaction Metrics Test..."
 
+# Load user count from the JSON file
+$usersConfigPath = "C:\Deployments\test\number_of_users.json"
+if (Test-Path $usersConfigPath) {
+    $config = Get-Content $usersConfigPath -Raw | ConvertFrom-Json
+    $users = $config.users
+} else {
+    Write-Output "Configuration file not found. Using default user count of 1."
+    $users = 1
+}
+
 # Define paths and variables
 $deploymentsPath = "C:\Deployments\test"
 $artifactsPath = "C:\buildAgentFull\artifacts"
@@ -13,35 +23,41 @@ if (!(Test-Path $artifactsPath)) {
     New-Item -Path $artifactsPath -ItemType Directory -Force | Out-Null
 }
 
-# Run Lighthouse test to generate the report
-Write-Output "Running Lighthouse..."
-$lighthouseCmd = "lighthouse $testUrl --chrome-path=`"$chromePath`" --output=json --output-path=`"$lighthouseReport`" --chrome-flags=`"--headless --no-sandbox`""
-Invoke-Expression $lighthouseCmd
-
-# Parse Interaction Metrics from Lighthouse report
-$tti = "N/A"
-$tbt = "N/A"
-if (Test-Path $lighthouseReport) {
-    $lighthouseJson = Get-Content $lighthouseReport -Raw | ConvertFrom-Json
-    # Extract TTI (usually a display value, e.g., "0.7 s")
-    $tti = $lighthouseJson.audits.interactive.displayValue
-    # Extract Total Blocking Time as a numeric value (in milliseconds)
-    $tbt = $lighthouseJson.audits."total-blocking-time".numericValue
-}
-Write-Output "Time to Interactive (TTI): $tti"
-Write-Output "Total Blocking Time (TBT): $tbt ms"
-
-# Clean the TTI value to remove stray "Â" and trailing " s"
-$ttiClean = ($tti.Trim() -replace "[\u00C2]", "") -replace "\s*s$", ""
-
-# Log results to a dedicated CSV for interaction metrics
+# Prepare CSV header if it doesn't exist
 if (!(Test-Path $performanceCSV)) {
-    "Timestamp,TTI,Total Blocking Time (ms)" | Out-File -Encoding utf8 $performanceCSV
+    "Timestamp,User,TTI,Total Blocking Time (ms)" | Out-File -Encoding utf8 $performanceCSV
 }
 
-$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$row = "$timestamp,$ttiClean,$tbt"
-$row = $row -replace [char]0xA0, ' '  # Remove non-breaking spaces if present
-Add-Content -Path $performanceCSV -Value $row -Encoding UTF8
+for ($i = 1; $i -le $users; $i++) {
+    Write-Output "User $i: Running Interaction Metrics Test..."
 
-Write-Output "Interaction metrics recorded. Results stored at: $performanceCSV"
+    # Run Lighthouse test to generate the report
+    Write-Output "Running Lighthouse..."
+    $lighthouseCmd = "lighthouse $testUrl --chrome-path=`"$chromePath`" --output=json --output-path=`"$lighthouseReport`" --chrome-flags=`"--headless --no-sandbox`""
+    Invoke-Expression $lighthouseCmd
+
+    # Parse Interaction Metrics from Lighthouse report
+    $tti = "N/A"
+    $tbt = "N/A"
+    if (Test-Path $lighthouseReport) {
+        $lighthouseJson = Get-Content $lighthouseReport -Raw | ConvertFrom-Json
+        # Extract TTI (display value, e.g., "0.7 s")
+        $tti = $lighthouseJson.audits.interactive.displayValue
+        # Extract Total Blocking Time as a numeric value (in milliseconds)
+        $tbt = $lighthouseJson.audits."total-blocking-time".numericValue
+    }
+    Write-Output "User $i - Time to Interactive (TTI): $tti"
+    Write-Output "User $i - Total Blocking Time (TBT): $tbt ms"
+
+    # Clean the TTI value to remove stray "Â" characters and trailing " s"
+    $ttiClean = ($tti.Trim() -replace "[\u00C2]", "") -replace "\s*s$", ""
+
+    # Log the results to the CSV file
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $row = "$timestamp,$i,$ttiClean,$tbt"
+    # Optionally remove non-breaking spaces if present
+    $row = $row -replace [char]0xA0, ' '
+    Add-Content -Path $performanceCSV -Value $row -Encoding UTF8
+}
+
+Write-Output "Interaction metrics recorded for $users users. Results stored at: $performanceCSV"
