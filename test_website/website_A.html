@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website A - Online Store</title>
+
+  <!-- Simulate long loading fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" />
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .hero img {
+      max-width: 90%;
+      height: auto;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding: 2rem;
+    }
+    .product {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background-color: #fafafa;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #222;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SuperStore</h1>
+  </header>
+
+  <section class="hero">
+    <!-- Simulate large image (high LCP) -->
+    <img src="image_A.png" alt="Sale Banner" />
+    <h2>Big Sale Today Only!</h2>
+  </section>
+
+  <section class="products">
+    <div class="product"><h3>Product 1</h3><p>$10</p></div>
+    <div class="product"><h3>Product 2</h3><p>$20</p></div>
+    <div class="product"><h3>Product 3</h3><p>$30</p></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 SuperStore</p>
+  </footer>
+
+  <!-- Simulate heavy JS blocking main thread (high TBT) -->
+  <script>
+    const start = performance.now();
+    while (performance.now() - start < 1500) {
+      // block for 1.5 seconds
+    }
+  </script>
+
+  <!-- Simulate script delaying TTI -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>

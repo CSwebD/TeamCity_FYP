@@ -87,7 +87,7 @@ def main():
     Reads five known CSV files and creates a chart for each.
     """
     # Directory containing your CSVs (adjust if needed)
-    artifacts_dir = r"C:\buildAgentFull\artifacts"
+    artifacts_dir = r"C:\buildAgentFull\artifacts\charts"
     
     # CSV filenames
     csv_files = [

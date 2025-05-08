@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Website C - SecureBank</title>
+
+  <!-- Heavy, blocking CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .hero img {
+      width: 95%;
+      max-width: 1200px;
+    }
+
+    .content {
+      padding: 2rem;
+    }
+
+    .account {
+      margin-bottom: 1.5rem;
+      background: white;
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+
+    footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SecureBank</h1>
+    <p>Your trusted financial partner</p>
+  </header>
+
+  <!-- Hero image simulates large FCP/LCP -->
+  <section class="hero">
+    <img src="image_C.png" alt="Banking Services Banner">
+  </section>
+
+  <section class="content">
+    <div class="account">
+      <h3>Current Account</h3>
+      <p>Manage your daily banking with ease.</p>
+    </div>
+    <div class="account">
+      <h3>Savings Account</h3>
+      <p>Grow your wealth securely over time.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 SecureBank. All rights reserved.
+  </footer>
+
+  <!-- Large, blocking script simulating slow response/load -->
+  <script>
+    const delayStart = performance.now();
+    while (performance.now() - delayStart < 1000) {
+      // simulate delay (1s blocking)
+    }
+  </script>
+
+  <!-- Unoptimized script file (external DNS/SSL hit) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+</body>
+</html>
