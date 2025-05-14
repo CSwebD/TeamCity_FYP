@@ -83,20 +83,20 @@ Create a .env file:
 
 `RETRY=TRUE`              # retry failed tests
 
-Trigger the Pipeline
+4. Trigger the Pipeline
 Push any change to main (or your selected branch) — the CI/CD pipeline will:
 
-Build Docker images
+- Build Docker images
 
-Deploy child pipelines for each OS
+- Deploy child pipelines for each OS
 
-Run functional & performance tests
+- Run functional & performance tests
 
-Publish CSV & chart artifacts
+- Publish CSV & chart artifacts
 
-Deploy to Netlify
+- Deploy to Netlify
 
-Notify on success/failure
+- Notify on success/failure
 
 ## 🔧 Configuration
 TeamCity
