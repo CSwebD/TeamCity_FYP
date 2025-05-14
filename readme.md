@@ -71,8 +71,8 @@ cd CI-CD-TeamCity-GitHub
 
 2. Configure Runners
 
-- Install GitLab Runner on your build server (shell & Docker executors).
-- Update config.toml with concurrent = 225 and appropriate tags.
+  - Install GitLab Runner on your build server (shell & Docker executors).
+  - Update config.toml with concurrent = 225 and appropriate tags.
 
 Environment Variables
 Create a .env file:
