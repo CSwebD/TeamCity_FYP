@@ -42,9 +42,7 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 ## 📁 Repository Structure
 
 ├── docs/
-
 │   └── pipeline_diagram.png     # Pipeline flowchart (Figure 18 & 19)
-
 ├── test_website/                # Sample sites for functional checks
 │   ├── site_A.html
 │   └── site_B.html
@@ -63,7 +61,7 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 ├── .gitlab-ci.yml               # GitLab CI parent/child pipeline
 ├── config.toml                  # GitLab Runner settings
 └── README.md
-📦 Getting Started
+## 📦 Getting Started
 Clone the repo
 
 bash
