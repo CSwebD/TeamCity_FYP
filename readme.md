@@ -78,7 +78,9 @@ cd CI-CD-TeamCity-GitHub
 Create a .env file:
 
 `RUNNERTYPE=DOCKER`       # or ALL for macOS + Docker
+
 `IMAGETYPE=ALL`           # ORACLE_LINUX, UBUNTU
+
 `RETRY=TRUE`              # retry failed tests
 
 Trigger the Pipeline
