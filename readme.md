@@ -120,14 +120,14 @@ Push any change to main (or your selected branch) — the CI/CD pipeline will:
   - generate_charts.py turns CSV into PNG charts
 
 ## 📈 Metrics & Charts
-All test data is logged as CSV in the artifacts directory, then converted to charts:
-
-Metric Category	CSV File	Chart Example
-Interaction	performance_results_interaction.csv	
-Network	performance_results_network.csv	
-Overall Load	performance_results_overall.csv	
-Stability (CLS)	performance_results_stability.csv	
-Visual (LCP/Speed Index)	performance_results_visual.csv	
+| Metric Category          | CSV File                              | Chart Example                              |
+| ------------------------ | ------------------------------------- | ------------------------------------------ |
+| Interaction              | `performance_results_interaction.csv` | ![Interaction Chart](docs/interaction.png) |
+| Network                  | `performance_results_network.csv`     | ![Network Chart](docs/network.png)         |
+| Overall Load             | `performance_results_overall.csv`     | ![Overall Chart](docs/overall.png)         |
+| Stability (CLS)          | `performance_results_stability.csv`   | ![Stability Chart](docs/stability.png)     |
+| Visual (LCP/Speed Index) | `performance_results_visual.csv`      | ![Visual Chart](docs/visual.png)           |
+	
 
 ## 🤝 Contributing
 Fork the repo
