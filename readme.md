@@ -66,7 +66,8 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 
 git clone https://github.com/YourUsername/CI-CD-TeamCity-GitHub.git
 cd CI-CD-TeamCity-GitHub
-Configure Runners
+
+2. Configure Runners
 
 Install GitLab Runner on your build server (shell & Docker executors).
 
