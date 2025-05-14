@@ -3,13 +3,13 @@
 A fully automated CI/CD solution that builds, tests, and deploys web projects using TeamCity, GitHub, PowerShell/Python scripts, and Netlify. Designed to replace manual FTP-based workflows with a robust, repeatable pipeline featuring automatic rollbacks, performance metrics logging, and clear feedback loops.
 
 ## 🚀 Features
-Automatic Builds & Deploys
+- Automatic Builds & Deploys
 
 Commits to GitHub trigger TeamCity builds
 
 Artifacts published to a shared folder and Netlify
 
-Automated Testing
+- Automated Testing
 
 Functional checks via PowerShell (check_webpage_functionality.ps1)
 
@@ -17,7 +17,7 @@ Performance audits (Lighthouse + Puppeteer)
 
 Generates CSV logs for metrics (network, interaction, load, stability, visual)
 
-Metrics & Monitoring
+- Metrics & Monitoring
 
 CSV results stored as TeamCity artifacts
 
@@ -25,13 +25,13 @@ generate_charts.py converts CSV → charts for trend analysis
 
 Easy review of Time to First Byte (TTFB), Total Load Time, CLS, LCP, etc.
 
-Reliable Rollbacks
+- Reliable Rollbacks
 
 Automatic backups of the current live site
 
 rollback_from_backup.ps1 restores last-known-good version
 
-Flexible Configuration
+- Flexible Configuration
 
 Supports parallel/sequential testing (macOS, Ubuntu, Oracle Linux)
 
