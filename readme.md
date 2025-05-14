@@ -99,25 +99,25 @@ Push any change to main (or your selected branch) — the CI/CD pipeline will:
 - Notify on success/failure
 
 ## 🔧 Configuration
-TeamCity
+- TeamCity
 
-Shared folder triggers builds
+  - Shared folder triggers builds
 
-Build steps: checkout → tests → backup → deploy
+  - Build steps: checkout → tests → backup → deploy
 
-Artifacts stored in C:\buildAgentFull\artifacts
+  - Artifacts stored in C:\buildAgentFull\artifacts
 
-Netlify
+- Netlify
 
-Continuous deployment from GitHub
+  - Continuous deployment from GitHub
 
-Build & deploy settings under “Build & deploy”
+  - Build & deploy settings under “Build & deploy”
 
-Scripts
+- Scripts
 
-Each run_*_metrics.ps1 loads number_of_users.json → runs Lighthouse/Puppeteer → logs CSV
+  - Each run_*_metrics.ps1 loads number_of_users.json → runs Lighthouse/Puppeteer → logs CSV
 
-generate_charts.py turns CSV into PNG charts
+  - generate_charts.py turns CSV into PNG charts
 
 ## 📈 Metrics & Charts
 All test data is logged as CSV in the artifacts directory, then converted to charts:
