@@ -139,6 +139,4 @@ Push to the branch (git push origin feature/YourFeature)
 Open a Pull Request
 
 ## 📜 License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Made with ❤️ by [Your Name]
+This project is licensed under the MIT License. See the LICENSE[/license] file for details.
