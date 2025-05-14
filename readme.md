@@ -74,15 +74,13 @@ cd CI-CD-TeamCity-GitHub
   - Install GitLab Runner on your build server (shell & Docker executors).
   - Update config.toml with concurrent = 225 and appropriate tags.
 
-Environment Variables
+3. Environment Variables
 Create a .env file:
 
-ini
-Copy
-Edit
-RUNNERTYPE=DOCKER       # or ALL for macOS + Docker
-IMAGETYPE=ALL           # ORACLE_LINUX, UBUNTU
-RETRY=TRUE              # retry failed tests
+'RUNNERTYPE=DOCKER'       # or ALL for macOS + Docker
+'IMAGETYPE=ALL'           # ORACLE_LINUX, UBUNTU
+'RETRY=TRUE'              # retry failed tests
+
 Trigger the Pipeline
 Push any change to main (or your selected branch) — the CI/CD pipeline will:
 
