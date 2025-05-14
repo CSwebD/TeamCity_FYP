@@ -11,31 +11,31 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 
 - Automated Testing
 
-Functional checks via PowerShell (check_webpage_functionality.ps1)
+  - Functional checks via PowerShell (check_webpage_functionality.ps1)
 
-Performance audits (Lighthouse + Puppeteer)
+  - Performance audits (Lighthouse + Puppeteer)
 
-Generates CSV logs for metrics (network, interaction, load, stability, visual)
+  - Generates CSV logs for metrics (network, interaction, load, stability, visual)
 
 - Metrics & Monitoring
 
-CSV results stored as TeamCity artifacts
+  - CSV results stored as TeamCity artifacts
 
-generate_charts.py converts CSV → charts for trend analysis
+  - generate_charts.py converts CSV → charts for trend analysis
 
-Easy review of Time to First Byte (TTFB), Total Load Time, CLS, LCP, etc.
+  - Easy review of Time to First Byte (TTFB), Total Load Time, CLS, LCP, etc.
 
 - Reliable Rollbacks
 
-Automatic backups of the current live site
+  - Automatic backups of the current live site
 
-rollback_from_backup.ps1 restores last-known-good version
+  - rollback_from_backup.ps1 restores last-known-good version
 
 - Flexible Configuration
 
-Supports parallel/sequential testing (macOS, Ubuntu, Oracle Linux)
+  - Supports parallel/sequential testing (macOS, Ubuntu, Oracle Linux)
 
-Configurable via .env and config.toml
+  - Configurable via .env and config.toml
 
 Retry logic for flaky tests
 
