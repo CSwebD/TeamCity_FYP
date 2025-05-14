@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Website D - Optimized University</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fast-loading Google Fonts (optional), using font-display:swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+    }
+
+    .hero img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    main {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+
+    footer {
+      background-color: #004080;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Global University</h1>
+    <p>Empowering Education Through Innovation</p>
+  </header>
+
+  <!-- Optimized LCP element -->
+  <section class="hero">
+    <img src="image_D.png" alt="University Banner" width="1200" height="300" loading="eager" />
+  </section>
+
+  <main>
+    <div class="card">
+      <h2>Admissions</h2>
+      <p>Learn about our programs, scholarships, and how to apply to our university.</p>
+    </div>
+    <div class="card">
+      <h2>Research</h2>
+      <p>Explore cutting-edge research projects across multiple disciplines.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Global University. All rights reserved.
+  </footer>
+
+  <!-- Lightweight, deferred script -->
+  <script defer>
+    window.addEventListener('DOMContentLoaded', () => {
+      console.log('Site loaded efficiently.');
+    });
+  </script>
+</body>
+</html>
