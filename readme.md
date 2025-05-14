@@ -96,7 +96,7 @@ Deploy to Netlify
 
 Notify on success/failure
 
-🔧 Configuration
+## 🔧 Configuration
 TeamCity
 
 Shared folder triggers builds
@@ -117,7 +117,7 @@ Each run_*_metrics.ps1 loads number_of_users.json → runs Lighthouse/Puppeteer 
 
 generate_charts.py turns CSV into PNG charts
 
-📈 Metrics & Charts
+## 📈 Metrics & Charts
 All test data is logged as CSV in the artifacts directory, then converted to charts:
 
 Metric Category	CSV File	Chart Example
@@ -127,7 +127,7 @@ Overall Load	performance_results_overall.csv
 Stability (CLS)	performance_results_stability.csv	
 Visual (LCP/Speed Index)	performance_results_visual.csv	
 
-🤝 Contributing
+## 🤝 Contributing
 Fork the repo
 
 Create a feature branch (git checkout -b feature/YourFeature)
@@ -138,7 +138,7 @@ Push to the branch (git push origin feature/YourFeature)
 
 Open a Pull Request
 
-📜 License
+## 📜 License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 Made with ❤️ by [Your Name]
