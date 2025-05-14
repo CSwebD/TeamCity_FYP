@@ -37,9 +37,9 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 
   - Configurable via .env and config.toml
 
-Retry logic for flaky tests
+  - Retry logic for flaky tests
 
-📁 Repository Structure
+## 📁 Repository Structure
 bash
 Copy
 Edit
