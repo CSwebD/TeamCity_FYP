@@ -44,6 +44,7 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 ├── docs/
 
 │   └── pipeline_diagram.png     # Pipeline flowchart (Figure 18 & 19)
+
 ├── test_website/                # Sample sites for functional checks
 │   ├── site_A.html
 │   └── site_B.html
