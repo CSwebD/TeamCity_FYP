@@ -1,4 +1,4 @@
-CI/CD Pipeline Automation with TeamCity & GitHub
+# CI/CD Pipeline Automation with TeamCity & GitHub
 
 A fully automated CI/CD solution that builds, tests, and deploys web projects using TeamCity, GitHub, PowerShell/Python scripts, and Netlify. Designed to replace manual FTP-based workflows with a robust, repeatable pipeline featuring automatic rollbacks, performance metrics logging, and clear feedback loops.
 
