@@ -2,7 +2,7 @@
 
 A fully automated CI/CD solution that builds, tests, and deploys web projects using TeamCity, GitHub, PowerShell/Python scripts, and Netlify. Designed to replace manual FTP-based workflows with a robust, repeatable pipeline featuring automatic rollbacks, performance metrics logging, and clear feedback loops.
 
-##🚀 Features
+## 🚀 Features
 Automatic Builds & Deploys
 
 Commits to GitHub trigger TeamCity builds
