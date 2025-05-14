@@ -77,17 +77,9 @@ cd CI-CD-TeamCity-GitHub
 3. Environment Variables
 Create a .env file:
 
-'RUNNERTYPE=DOCKER'       # or ALL for macOS + Docker
-'IMAGETYPE=ALL'           # ORACLE_LINUX, UBUNTU
-'RETRY=TRUE'              # retry failed tests
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`API_KEY`
-
-`ANOTHER_API_KEY`
+`RUNNERTYPE=DOCKER`       # or ALL for macOS + Docker
+`IMAGETYPE=ALL`           # ORACLE_LINUX, UBUNTU
+`RETRY=TRUE`              # retry failed tests
 
 Trigger the Pipeline
 Push any change to main (or your selected branch) — the CI/CD pipeline will:
