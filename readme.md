@@ -62,10 +62,12 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 ├── config.toml                  # GitLab Runner settings
 └── README.md
 ## 📦 Getting Started
-1. Clone the repo
+1. Clone the repo via bash
 
+```bash
 git clone https://github.com/YourUsername/CI-CD-TeamCity-GitHub.git
 cd CI-CD-TeamCity-GitHub
+```
 
 2. Configure Runners
 
