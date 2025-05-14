@@ -130,15 +130,15 @@ Push any change to main (or your selected branch) — the CI/CD pipeline will:
 	
 
 ## 🤝 Contributing
-Fork the repo
+1. Fork the repo
 
-Create a feature branch (git checkout -b feature/YourFeature)
+2. Create a feature branch (git checkout -b feature/YourFeature)
 
-Commit your changes (git commit -m "Add awesome feature")
+3. Commit your changes (git commit -m "Add awesome feature")
 
-Push to the branch (git push origin feature/YourFeature)
+4. Push to the branch (git push origin feature/YourFeature)
 
-Open a Pull Request
+5. Open a Pull Request
 
 ## 📜 License
 This project is licensed under the MIT License. See the LICENSE[/license] file for details.
