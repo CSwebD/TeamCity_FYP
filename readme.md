@@ -40,7 +40,7 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
   - Retry logic for flaky tests
 
 ## 📁 Repository Structure
-
+.
 ├── docs/
 │   └── pipeline_diagram.png     # Pipeline flowchart (Figure 18 & 19)
 ├── test_website/                # Sample sites for functional checks
@@ -61,6 +61,7 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 ├── .gitlab-ci.yml               # GitLab CI parent/child pipeline
 ├── config.toml                  # GitLab Runner settings
 └── README.md
+
 ## 📦 Getting Started
 1. Clone the repo via bash
 
@@ -74,16 +75,7 @@ cd CI-CD-TeamCity-GitHub
   - Install GitLab Runner on your build server (shell & Docker executors).
   - Update config.toml with concurrent = 225 and appropriate tags.
 
-3. Environment Variables
-Create a .env file:
-
-`RUNNERTYPE=DOCKER`       # or ALL for macOS + Docker
-
-`IMAGETYPE=ALL`           # ORACLE_LINUX, UBUNTU
-
-`RETRY=TRUE`              # retry failed tests
-
-4. Trigger the Pipeline
+3. Trigger the Pipeline
 Push any change to main (or your selected branch) — the CI/CD pipeline will:
 
 - Build Docker images
