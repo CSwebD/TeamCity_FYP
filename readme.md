@@ -5,9 +5,9 @@ A fully automated CI/CD solution that builds, tests, and deploys web projects us
 ## 🚀 Features
 - Automatic Builds & Deploys
 
-Commits to GitHub trigger TeamCity builds
+  - Commits to GitHub trigger TeamCity builds
 
-Artifacts published to a shared folder and Netlify
+  - Artifacts published to a shared folder and Netlify
 
 - Automated Testing
 
