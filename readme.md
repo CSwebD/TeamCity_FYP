@@ -122,7 +122,7 @@ Push any change to main (or your selected branch) — the CI/CD pipeline will:
 ## 📈 Metrics & Charts
 | Metric Category          | CSV File                              | Chart Example                              |
 | ------------------------ | ------------------------------------- | ------------------------------------------ |
-| Interaction              | `performance_results_interaction.csv` | ![Interaction Chart](docs/interaction.png) |
+| Interaction              | `performance_results_interaction.csv` | ![Interaction Chart](artifacts/charts/performance_results_interaction.png) |
 | Network                  | `performance_results_network.csv`     | ![Network Chart](docs/network.png)         |
 | Overall Load             | `performance_results_overall.csv`     | ![Overall Chart](docs/overall.png)         |
 | Stability (CLS)          | `performance_results_stability.csv`   | ![Stability Chart](docs/stability.png)     |
